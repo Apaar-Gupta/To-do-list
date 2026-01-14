@@ -14,10 +14,10 @@ const EditTodo = ({ task, setShowModal, getUserTask }) => {
   const handleSelectChange = (e) => {
     setIsCompleted(e.target.value);
   };
-  //   console.log(isCompleted);
+  
   const id = task?._id;
 
-  //update
+
   const handleSubmit = async () => {
     try {
       const userData = JSON.parse(localStorage.getItem("todoapp"));

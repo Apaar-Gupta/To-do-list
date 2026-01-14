@@ -14,7 +14,7 @@ const updateTodo = (id, data) => {
   return axios.patch("/api/v1/todo/update/" + id, data);
 };
 
-//DLEETE TODO
+
 const deleteTodo = (id) => {
   return axios.delete("/api/v1/todo/delete/" + id);
 };

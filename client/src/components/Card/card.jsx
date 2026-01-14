@@ -7,12 +7,12 @@ import TodoServices from "../../Services/TodoServices";
 const Card = ({ allTask, getUserTask }) => {
   const [showModal, setShowModal] = useState(false);
 
-  //handle edit
+  
   const handleEdit = () => {
     setShowModal(true);
   };
 
-  //hanlde delete
+  
   const handleDelete = async (id) => {
   try {
     await TodoServices.deleteTodo(id);
