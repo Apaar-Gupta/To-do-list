@@ -7,6 +7,6 @@ const authMiddleware=require('../middlewares/authMiddleware.js')
 const router=express.Router();
 router.post('/create',authMiddleware,createTodoController)
 router.post('/getAll/:userId',authMiddleware,getTodoController)
-router.post('/delete/:id',authMiddleware,deleteTodoController)
+router.delete('/delete/:id',authMiddleware,deleteTodoController)
 router.patch('/update/:id',authMiddleware,updateTodoController)
 module.exports=router;
