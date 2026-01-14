@@ -1,24 +1,37 @@
-import axios from 'axios';
-const user=JSON.parse(localStorage.getItem('todoapp'));
+import axios from "axios";
 
-axios.defaults.headers.common['Authorization']=`Bearer ${user.token}`;
 
-const createTodo=async(data)=>{
-    return await axios.post('/api/v1/todo/create',data);
+axios.defaults.baseURL = "https://to-do-list-xc5k.onrender.com";
+
+const user = JSON.parse(localStorage.getItem("todoapp"));
+
+if (user?.token) {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
 }
-const getAllTodo=async(id)=>{
-    return await axios.post(`/api/v1/todo/getAll/${id}`);
-}
 
-const updateTodo = (id, data) => {
-  return axios.patch("/api/v1/todo/update/" + id, data);
+
+
+const createTodo = async (data) => {
+  return axios.post("/api/v1/todo/create", data);
 };
 
-
-const deleteTodo = (id) => {
-  return axios.delete("/api/v1/todo/delete/" + id);
+const getAllTodo = async (id) => {
+  return axios.get(`/api/v1/todo/getAll/${id}`);
 };
 
-const TodoServices = { createTodo, getAllTodo, updateTodo, deleteTodo };
+const updateTodo = async (id, data) => {
+  return axios.patch(`/api/v1/todo/update/${id}`, data);
+};
+
+const deleteTodo = async (id) => {
+  return axios.delete(`/api/v1/todo/delete/${id}`);
+};
+
+const TodoServices = {
+  createTodo,
+  getAllTodo,
+  updateTodo,
+  deleteTodo,
+};
 
 export default TodoServices;
