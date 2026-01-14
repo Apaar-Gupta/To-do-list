@@ -1,46 +1,46 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import TodoServices from "../Services/TodoServices";
-const PopModal = ({
-  getUserTask,
-  title,
-  setTitle,
-  description,
-  setDescription,
-  showModal,
-  setShowModal,
-}) => {
-  //handle close
+
+const EditTodo = ({ task, setShowModal, getUserTask }) => {
+  const [title, setTitle] = useState(task?.title);
+  const [description, setDescription] = useState(task?.description);
+  const [isCompleted, setIsCompleted] = useState(task?.isCompleted);
+
   const handleClose = () => {
     setShowModal(false);
   };
-  //hanlde submit
+
+  const handleSelectChange = (e) => {
+    setIsCompleted(e.target.value);
+  };
+  //   console.log(isCompleted);
+  const id = task?._id;
+
+  //update
   const handleSubmit = async () => {
     try {
       const userData = JSON.parse(localStorage.getItem("todoapp"));
       const createdBy = userData && userData.user.id;
-      const data = { title, description, createdBy };
+      const data = { title, description, createdBy, isCompleted };
       if (!title || !description) {
-        return toast.error("Please provide title or description");
+        return toast.error("Please prvide title or description");
       }
-      const todo = await TodoServices.createTodo(data);
+      await TodoServices.updateTodo(id, data);
       setShowModal(false);
-      getUserTask();
-      toast.success("Task Created Successfully");
-      console.log(todo);
+      toast.success("Task Updated Successfully");
       setTitle("");
       setDescription("");
+      getUserTask();
     } catch (error) {
       console.log(error);
-      toast.error(error);
+      
+
     }
   };
-
-
-
   return (
     <>
-      {showModal && (
+      {task && (
         <div
           className="modal"
           tabIndex="-1"
@@ -50,7 +50,7 @@ const PopModal = ({
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Add New Task</h5>
+                <h5 className="modal-title">Update Your Task</h5>
                 <button
                   className="btn-close"
                   aria-label="close"
@@ -69,14 +69,21 @@ const PopModal = ({
                     onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
-                <div className="mb-3">
-                  <label className="form-label">Description</label>
-                  <input
-                    type="text"
+                <div className="form-floating">
+                  <textarea
                     className="form-control"
+                    id="floatigTextarea"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                  />
+                  ></textarea>
+                  <label htmlFor="floatigTextarea">Dscription</label>
+                </div>
+                <div className="my-3">
+                  <select className="form-select" onChange={handleSelectChange}>
+                    <option selected>Select Status</option>
+                    <option value={true}>Completed</option>
+                    <option value={false}>Incomplete</option>
+                  </select>
                 </div>
               </div>
               <div className="modal-footer">
@@ -92,7 +99,7 @@ const PopModal = ({
                   className="btn btn-primary"
                   onClick={handleSubmit}
                 >
-                  Create
+                  UPDATE
                 </button>
               </div>
             </div>
@@ -103,4 +110,4 @@ const PopModal = ({
   );
 };
 
-export default PopModal;
+export default EditTodo;

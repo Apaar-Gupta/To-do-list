@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from './../../components/Layout/Navbar';
 import PopModal from '../../components/popModal.js';
 import TodoServices from "../../Services/TodoServices.js";
+import Card from "../../components/Card/card.jsx";
 
 const Home = () => {
 
@@ -29,7 +30,6 @@ const Home = () => {
     }
   };
 
-  //get User todos
   const userData = JSON.parse(localStorage.getItem("todoapp"));
   const id = userData && userData?.user.id;
   console.log(id);
@@ -38,7 +38,7 @@ const Home = () => {
     try {
       const { data } = await TodoServices.getAllTodo(id);
       setLoading(false);
-      // console.log(data);
+       console.log(data);
       setAllTask(data?.todos);
     } catch (error) {
       setLoading(false);
@@ -65,7 +65,7 @@ const Home = () => {
             Create Task <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-
+{allTask && <Card allTask={allTask} />}
       
         <PopModal
           getUserTask={getUserTask}
