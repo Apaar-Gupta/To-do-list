@@ -1,0 +1,126 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+/* Hero Layout */
+.hero {
+  min-height: 100vh;
+  padding: 80px 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  background-color: #ffffff;
+}
+
+/* Left Text Section */
+.intro-text {
+  max-width: 540px;
+}
+
+.intro-text h1 {
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.tagline1 {
+  color: #1f2933;
+}
+
+.tagline2 {
+  color: #ff6b57;
+}
+
+/* Paragraph */
+.intro-text p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #4b5563;
+  margin-bottom: 35px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 14px 26px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-right: 16px;
+  transition: all 0.3s ease;
+}
+
+/* Register Button */
+.btn.red {
+  background-color: #ff6b57;
+  color: #ffffff;
+}
+
+.btn.red:hover {
+  background-color: #ff523d;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 107, 87, 0.35);
+}
+
+/* Login Button */
+.btn.blue {
+  background-color: transparent;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+}
+
+.btn.blue:hover {
+  background-color: #2563eb;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Image Section */
+.hero img {
+  max-width: 520px;
+  width: 100%;
+  height: auto;
+}
+
+/* Smooth entrance animation */
+.intro-text {
+  animation: fadeInUp 0.8s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .intro-text {
+    max-width: 100%;
+  }
+
+  .btn {
+    margin-bottom: 12px;
+  }
+
+  .intro-text h1 {
+    font-size: 2.4rem;
+  }
+}
