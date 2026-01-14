@@ -1,6 +1,8 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://to-do-list-xc5k.onrender.com";
+const API = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
 const registerUser = (data) => {
   return axios.post("/api/v1/user/register", data);
 };

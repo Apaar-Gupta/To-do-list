@@ -1,7 +1,9 @@
 import axios from "axios";
 
 
-axios.defaults.baseURL = "https://to-do-list-xc5k.onrender.com";
+const API = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
 
 const user = JSON.parse(localStorage.getItem("todoapp"));
 
