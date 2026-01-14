@@ -1,5 +1,6 @@
 import axios from "axios";
 
+axios.defaults.baseURL = "https://to-do-list-xc5k.onrender.com";
 const registerUser = (data) => {
   return axios.post("/api/v1/user/register", data);
 };
