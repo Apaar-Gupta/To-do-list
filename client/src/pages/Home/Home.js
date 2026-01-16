@@ -16,19 +16,7 @@ const Home = () => {
   const openModalHandler = () => {
     setShowModal(true);
   };
-  const handleSearch = (e) => {
-    const query = e.target.value;
-    let filterList = allTask?.filter((item) =>
-      item.title.toLowerCase().match(query.toLowerCase())
-    );
-    console.log("Filterd list===>", filterList);
-    setSearchQuery(query);
-    if (query && filterList.length > 0) {
-      setAllTask(filterList && filterList);
-    } else {
-      getUserTask();
-    }
-  };
+
 
   const userData = JSON.parse(localStorage.getItem("todoapp"));
   const id = userData && userData?.user.id;
@@ -49,6 +37,22 @@ const Home = () => {
   useEffect(() => {
     getUserTask();
   }, []);
+
+    const handleSearch = (e) => {
+    const query = e.target.value;
+    let filterList = allTask?.filter((item) =>
+      item.title.toLowerCase().match(query.toLowerCase())
+    );
+    console.log("Filterd list===>", filterList);
+    setSearchQuery(query);
+    if (query && filterList.length > 0) {
+      setAllTask(filterList && filterList);
+    } else {
+      getUserTask();
+    }
+  };
+
+
   return (  
     <>
     <Navbar />

@@ -20,9 +20,4 @@ export const updateTodo = (id, data) =>
 export const deleteTodo = (id) =>
   API.delete(`/api/v1/todo/delete/${id}`);
 
-export default {
-  createTodo,
-  getAllTodo,
-  updateTodo,
-  deleteTodo,
-};
+
