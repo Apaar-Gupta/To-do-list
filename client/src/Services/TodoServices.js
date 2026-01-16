@@ -17,7 +17,7 @@ export const createTodo = (data) =>
   API.post("/api/v1/todo/create", data);
 
 export const getAllTodo = (id) =>
-  API.get(`/api/v1/todo/getAll/${id}`);
+  API.post(`/api/v1/todo/getAll/${id}`);
 
 export const updateTodo = (id, data) =>
   API.patch(`/api/v1/todo/update/${id}`, data);

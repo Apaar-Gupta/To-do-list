@@ -3,7 +3,7 @@ import EditTodo from "../EditTodo";
 import toast from "react-hot-toast";
 import TodoServices from "../../Services/TodoServices";
 
-const Card = ({ allTask, getUserTask }) => {
+const Card = ({ allTask = [], getUserTask }) => {
   const [editTask, setEditTask] = useState(null);
 
   // Edit handler
@@ -16,7 +16,7 @@ const Card = ({ allTask, getUserTask }) => {
     try {
       await TodoServices.deleteTodo(id);
       toast.success("Task deleted successfully");
-      getUserTask();
+      getUserTask(); // refresh list
     } catch (error) {
       console.error(error);
       toast.error("Failed to delete task");
@@ -26,7 +26,11 @@ const Card = ({ allTask, getUserTask }) => {
   return (
     <>
       <div className="card-container">
-        {allTask?.map((task) => (
+        {allTask.length === 0 && (
+          <p className="text-center mt-4">No tasks found</p>
+        )}
+
+        {allTask.map((task) => (
           <React.Fragment key={task._id}>
             <div
               className="card border-primary mb-3 mt-3"
@@ -34,11 +38,9 @@ const Card = ({ allTask, getUserTask }) => {
             >
               <div className="card-header">
                 <div className="chead">
-                  <h6>{task?.title.substring(0, 10)}</h6>
+                  <h6>{task?.title?.substring(0, 10) || "Untitled"}</h6>
                   <h6
-                    className={
-                      task?.isCompleted ? "task-cmp" : "task-inc"
-                    }
+                    className={task?.isCompleted ? "task-cmp" : "task-inc"}
                   >
                     {task?.isCompleted ? "Completed" : "Incomplete"}
                   </h6>
@@ -46,9 +48,18 @@ const Card = ({ allTask, getUserTask }) => {
               </div>
 
               <div className="card-body">
-                <h6 style={{ fontWeight: "bold" }}>{task?.title}</h6>
-                <p className="card-text">{task?.description}</p>
-                <h6>Date : {task?.createdAt.substring(0, 10)}</h6>
+                <h6 style={{ fontWeight: "bold" }}>
+                  {task?.title || "No title"}
+                </h6>
+                <p className="card-text">
+                  {task?.description || "No description"}
+                </p>
+                <h6>
+                  Date :{" "}
+                  {task?.createdAt
+                    ? task.createdAt.substring(0, 10)
+                    : "N/A"}
+                </h6>
               </div>
 
               <div className="card-footer bg-transparent border-primary">
