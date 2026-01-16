@@ -10,4 +10,9 @@ export const registerUser = (data) =>
 export const loginUser = (data) =>
   API.post("/api/v1/user/login", data);
 
-export default { registerUser, loginUser };
+const AuthServices = {
+  registerUser,
+  loginUser,
+};
+
+export default AuthServices;

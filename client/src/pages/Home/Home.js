@@ -3,6 +3,8 @@ import Navbar from './../../components/Layout/Navbar';
 import PopModal from '../../components/popModal.js';
 import TodoServices from "../../Services/TodoServices.js";
 import Card from "../../components/Card/card.jsx";
+import { useCallback } from "react";
+
 
 const Home = () => {
 
@@ -21,22 +23,23 @@ const Home = () => {
   const userData = JSON.parse(localStorage.getItem("todoapp"));
   const id = userData && userData?.user.id;
   console.log(id);
-  const getUserTask = async () => {
-    setLoading(true);
-    try {
-      const { data } = await TodoServices.getAllTodo(id);
-      setLoading(false);
-       console.log(data);
-      setAllTask(data?.todos);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  };
+ 
 
-  useEffect(() => {
-    getUserTask();
-  }, []);
+const getUserTask = useCallback(async () => {
+  try {
+    const { data } = await TodoServices.getAllTodo(id);
+    setAllTask(data?.todos);
+  } catch (error) {
+    console.log(error);
+  }
+}, [id]);
+
+useEffect(() => {
+  getUserTask();
+}, [getUserTask]);
+
+
+  
 
     const handleSearch = (e) => {
     const query = e.target.value;
