@@ -10,7 +10,7 @@ const Home = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [loading, setLoading] = useState(false);
+  
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [allTask, setAllTask] = useState([]);
