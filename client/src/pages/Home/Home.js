@@ -72,7 +72,12 @@ useEffect(() => {
             Create Task <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-{allTask && <Card allTask={allTask} />}
+{allTask &&  <Card
+  allTask={allTask}
+  setAllTask={setAllTask}
+  getUserTask={getUserTask}
+/>
+}
       
         <PopModal
           getUserTask={getUserTask}

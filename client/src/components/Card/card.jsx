@@ -3,7 +3,7 @@ import EditTodo from "../EditTodo";
 import toast from "react-hot-toast";
 import TodoServices from "../../Services/TodoServices";
 
-const Card = ({ allTask = [], getUserTask }) => {
+const Card = ({ allTask = [], setAllTask, getUserTask }) => {
   const [editTask, setEditTask] = useState(null);
 
   // Edit handler
@@ -11,15 +11,24 @@ const Card = ({ allTask = [], getUserTask }) => {
     setEditTask(task);
   };
 
-  // Delete handler
+  // ✅ Optimistic Delete handler
   const handleDelete = async (id) => {
+    // 1️⃣ Update UI immediately
+    setAllTask((prev) => prev.filter((task) => task._id !== id));
+
     try {
-      await TodoServices.deleteTodo(id);
-      toast.success("Task deleted successfully");
-      getUserTask(); // refresh list
+      const { data } = await TodoServices.deleteTodo(id);
+
+      if (data?.success) {
+        toast.success("Task deleted successfully");
+      } else {
+        toast.error("Failed to delete task");
+        getUserTask(); // rollback
+      }
     } catch (error) {
       console.error(error);
       toast.error("Failed to delete task");
+      getUserTask(); // rollback
     }
   };
 
@@ -39,9 +48,7 @@ const Card = ({ allTask = [], getUserTask }) => {
               <div className="card-header">
                 <div className="chead">
                   <h6>{task?.title?.substring(0, 10) || "Untitled"}</h6>
-                  <h6
-                    className={task?.isCompleted ? "task-cmp" : "task-inc"}
-                  >
+                  <h6 className={task?.isCompleted ? "task-cmp" : "task-inc"}>
                     {task?.isCompleted ? "Completed" : "Incomplete"}
                   </h6>
                 </div>
