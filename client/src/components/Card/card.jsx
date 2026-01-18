@@ -55,21 +55,27 @@ const Card = ({ allTask = [], setAllTask, getUserTask }) => {
               </div>
 
               <div className="card-body">
-                
+
                 <p className="card-text">
                   {task?.description || "No description"}
                 </p>
                 <div className="date-deadline">
-                <h6>
-                  Task Created On:{" "}
-                  {task?.createdAt
-                    ? task.createdAt.substring(0, 10)
-                    : "N/A"}
-                </h6>
-                <h6>Deadline: {task?.deadline}</h6>
+                  <h6>
+                    Task Created On:{" "}
+                    {task?.createdAt
+                      ? task.createdAt.substring(0, 10)
+                      : "N/A"}
+                  </h6>
+                  <h6>
+                    Deadline:{" "}
+                    {task?.deadline
+                      ? new Date(task.deadline).toISOString().split("T")[0]
+                      : "No deadline"}
+                  </h6>
+
                 </div>
               </div>
-               
+
               <div className="card-footer bg-transparent border-primary">
                 <button
                   className="btn btn-warning"
