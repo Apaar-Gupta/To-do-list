@@ -50,11 +50,7 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/todos">
-                  My todo List
-                </Link>
-              </li>
+              
               <li className="nav-item">
                 <button
                   className="nav-link "

@@ -10,11 +10,12 @@ const Home = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [allTask, setAllTask] = useState([]);
-  
+  const [deadline, setDeadline] = useState("");
+
   const openModalHandler = () => {
     setShowModal(true);
   };
@@ -23,25 +24,25 @@ const Home = () => {
   const userData = JSON.parse(localStorage.getItem("todoapp"));
   const id = userData && userData?.user.id;
   console.log(id);
- 
-
-const getUserTask = useCallback(async () => {
-  try {
-    const { data } = await TodoServices.getAllTodo(id);
-    setAllTask(data?.todos);
-  } catch (error) {
-    console.log(error);
-  }
-}, [id]);
-
-useEffect(() => {
-  getUserTask();
-}, [getUserTask]);
 
 
-  
+  const getUserTask = useCallback(async () => {
+    try {
+      const { data } = await TodoServices.getAllTodo(id);
+      setAllTask(data?.todos);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [id]);
 
-    const handleSearch = (e) => {
+  useEffect(() => {
+    getUserTask();
+  }, [getUserTask]);
+
+
+
+
+  const handleSearch = (e) => {
     const query = e.target.value;
     let filterList = allTask?.filter((item) =>
       item.title.toLowerCase().match(query.toLowerCase())
@@ -56,12 +57,12 @@ useEffect(() => {
   };
 
 
-  return (  
+  return (
     <>
-    <Navbar />
-       <div className="container">
+      <Navbar />
+      <div className="container">
         <div className="add-task">
-          <h1>Your Task</h1>
+
           <input
             type="search"
             placeholder="search your task"
@@ -72,13 +73,13 @@ useEffect(() => {
             Create Task <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-{allTask &&  <Card
-  allTask={allTask}
-  setAllTask={setAllTask}
-  getUserTask={getUserTask}
-/>
-}
-      
+        {allTask && <Card
+          allTask={allTask}
+          setAllTask={setAllTask}
+          getUserTask={getUserTask}
+        />
+        }
+
         <PopModal
           getUserTask={getUserTask}
           showModal={showModal}
@@ -87,6 +88,8 @@ useEffect(() => {
           setTitle={setTitle}
           description={description}
           setDescription={setDescription}
+          deadline={deadline}
+          setDeadline={setDeadline}
         />
       </div>
     </>

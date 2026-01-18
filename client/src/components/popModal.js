@@ -9,6 +9,8 @@ const PopModal = ({
   setDescription,
   showModal,
   setShowModal,
+  deadline,
+  setDeadline,
 }) => {
   //handle close
   const handleClose = () => {
@@ -19,7 +21,7 @@ const PopModal = ({
     try {
       const userData = JSON.parse(localStorage.getItem("todoapp"));
       const createdBy = userData && userData.user.id;
-      const data = { title, description, createdBy };
+      const data = { title, description, createdBy, deadline };
       if (!title || !description) {
         return toast.error("Please provide title or description");
       }
@@ -30,6 +32,7 @@ const PopModal = ({
       console.log(todo);
       setTitle("");
       setDescription("");
+      setDeadline("");
     } catch (error) {
       console.log(error);
       toast.error(error);
@@ -76,6 +79,15 @@ const PopModal = ({
                     className="form-control"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Deadline</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    value={deadline}
+                    onChange={(e) => setDeadline(e.target.value)}
                   />
                 </div>
               </div>

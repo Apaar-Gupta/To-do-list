@@ -3,7 +3,7 @@ const todoModel=require('./../models/todoModel.js');
 const createTodoController=async(req,res)=>{
 
     try{
-        const {title,description,createdBy}=req.body;
+        const {title,description,createdBy,deadline}=req.body;
         if(!title || !description){
             return res.status(400).send({
                 success:false,
@@ -13,7 +13,9 @@ const createTodoController=async(req,res)=>{
         const todo=new todoModel({
             title,
             description,
-            createdBy})
+             deadline: deadline ? new Date(deadline) : null,
+            createdBy,
+            })
          const result= await todo.save();
          res.status(201).send({
             success:true,
